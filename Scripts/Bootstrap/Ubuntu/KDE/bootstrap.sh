@@ -1,0 +1,63 @@
+#!/usr/bin/env bash
+
+#Bootstrap the system
+rm -rf arm64
+mkdir arm64
+debootstrap --arch=arm64 --variant=minbase --include=systemd,libsystemd0,wget,ca-certificates,busybox-static noble arm64 http://ports.ubuntu.com/ubuntu-ports
+
+
+#Reduce size
+DEBIAN_FRONTEND=noninteractive DEBCONF_NONINTERACTIVE_SEEN=true \
+ LC_ALL=C LANGUAGE=C LANG=C chroot arm64 apt clean
+
+#Fix permission on dev machine only for easy packing
+chmod 777 -R arm64
+
+#This step is only needed for Ubuntu to prevent Group error
+touch arm64/root/.hushlogin
+
+#Setup DNS
+echo "127.0.0.1 localhost" > arm64/etc/hosts
+echo "nameserver 8.8.8.8" > arm64/etc/resolv.conf
+echo "nameserver 8.8.4.4" >> arm64/etc/resolv.conf
+
+#sources.list setup
+rm arm64/etc/apt/sources.list
+rm arm64/etc/hostname
+echo "LinuxBox-Ubuntu-KDE" > arm64/etc/hostname
+echo "deb http://ports.ubuntu.com/ubuntu-ports noble main restricted universe multiverse" >> arm64/etc/apt/sources.list
+echo "deb http://ports.ubuntu.com/ubuntu-ports noble-backports main restricted universe multiverse" >> arm64/etc/apt/sources.list
+echo "deb http://ports.ubuntu.com/ubuntu-ports noble-proposed main restricted universe multiverse" >> arm64/etc/apt/sources.list
+echo "deb http://ports.ubuntu.com/ubuntu-ports noble-security main restricted universe multiverse" >> arm64/etc/apt/sources.list
+echo "deb http://ports.ubuntu.com/ubuntu-ports noble-updates main restricted universe multiverse" >> arm64/etc/apt/sources.list
+echo "deb-src http://ports.ubuntu.com/ubuntu-ports noble main restricted universe multiverse" >> arm64/etc/apt/sources.list
+
+cp -r .vnc arm64/root/
+cp vncserver-start arm64/usr/local/bin/
+cp vncserver-stop arm64/usr/local/bin/
+chroot arm64 chmod +x /root/.vnc/xstartup
+chroot arm64 chmod +x /usr/local/bin/vncserver-start
+chroot arm64 chmod +x /usr/local/bin/vncserver-stop
+
+#setup custom packages
+chroot arm64 apt update
+chroot arm64 apt upgrade -y
+chroot arm64 apt dist-upgrade -y
+chroot arm64 apt install xorg kubuntu-desktop tigervnc-standalone-server dbus-x11 gvfs-daemons udisks2 -y
+chroot arm64 rm /var/lib/dpkg/info/udisks2.postinst
+chroot arm64 dpkg --configure udisks2
+chroot arm64 rm /var/lib/dpkg/info/fprintd.postinst
+chroot arm64 rm /var/lib/dpkg/info/libfprint*.postinst
+chroot arm64 rm /var/lib/dpkg/info/libpam-fprintd*.postinst
+chroot arm64 dpkg --configure -a
+chroot arm64 apt install -f
+chroot arm64 apt clean
+chroot arm64 apt autoremove -y
+chroot arm64 echo "export DISPLAY=":1"" >> /etc/profile
+rm -rf arm64/var/lib/apt/lists/*
+
+#tar the rootfs
+cd arm64
+rm -rf ../ubuntu-kde-rootfs.tar.xz
+rm -rf dev/*
+XZ_OPT=-9 tar -cJvf ../ubuntu-kde-rootfs.tar.xz ./*
