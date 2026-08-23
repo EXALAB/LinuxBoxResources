@@ -72,7 +72,7 @@ echo "exit-idle-time = -1" >> ~/../usr/etc/pulse/daemon.conf
 echo "Modified pulseaudio timeout to infinite"
 echo "autospawn = no" >> ~/../usr/etc/pulse/client.conf
 echo "Disabled pulseaudio autospawn"
-echo "export PULSE_SERVER=127.0.0.1" >> ubuntu-fs/etc/profile
+echo "export PULSE_SERVER=127.0.0.1" >> ubuntu-kde-fs/etc/profile
 echo "Setting Pulseaudio server to 127.0.0.1"
 
 echo "fixing shebang of $bin"
