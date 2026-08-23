@@ -4,11 +4,11 @@ if [ -d "$folder" ]; then
 	first=1
 	echo "skipping downloading"
 fi
-tarball="ubuntu-rootfs.tar.xz"
+tarball="ubuntu-kde-rootfs.tar.xz"
 if [ "$first" != 1 ];then
 	if [ ! -f $tarball ]; then
 		echo "Download Rootfs, this may take a while base on your internet speed."
-		wget --show-progress -i "https://raw.githubusercontent.com/NextAppsLab/LinuxBoxResources/master/Scripts/Installer/Ubuntu/KDE/ubuntu-kde-list.txt"
+		wget --show-progress "https://github.com/NextAppsLab/LinuxBoxResources/releases/download/Test-Release/ubuntu-kde-rootfs.tar.xz" -O $tarball
 	fi
 	cur=`pwd`
 	mkdir -p "$folder"
