@@ -1,0 +1,16 @@
+#!/bin/bash
+
+export USER=root
+export HOME=/root
+
+if vncserver -list | grep "stale" > /dev/null; then
+    rm -f ~/.vnc/*:1.pid 2>/dev/null
+    rm -f /tmp/.X1-lock 2>/dev/null
+    rm -f /tmp/.X11-unix/X1 2>/dev/null
+elif vncserver -list | grep "5901" > /dev/null; then
+    vncserver-stop > /dev/null 2>&1
+fi
+
+LD_PRELOAD=/lib/aarch64-linux-gnu/libgcc_s.so.1 vncserver -geometry 1600x900 -depth 24 -name remote-desktop :1
+
+exec /bin/bash --login
