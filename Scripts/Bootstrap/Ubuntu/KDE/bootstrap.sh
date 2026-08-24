@@ -67,7 +67,7 @@ chroot arm64 echo "export MOZ_DISABLE_CONTENT_SANDBOX=1" >> /etc/profile
 
 #Necessary steps for KDE to prevent Konsole warning
 mkdir -p arm64/root/.local/share/konsole
-mkdir -p /root/.config
+mkdir -p arm64/root/.config
 cp LinuxBox.profile arm64/root/.local/share/konsole/
 cp konsolerc arm64/root/.config/konsolerc
 
