@@ -67,8 +67,9 @@ chroot arm64 echo "export MOZ_DISABLE_CONTENT_SANDBOX=1" >> /etc/profile
 
 #Necessary steps for KDE to prevent Konsole warning
 mkdir -p arm64/root/.local/share/konsole
+mkdir -p /root/.config
 cp LinuxBox.profile arm64/root/.local/share/konsole/
-chroot arm64 echo -e "[Desktop Entry]\nDefaultProfile=LinuxBox.profile\n\n" >>  /root/.config/konsolerc
+cp konsolerc arm64/root/.config/konsolerc
 
 chroot arm64 apt clean
 chroot arm64 apt autoremove -y
