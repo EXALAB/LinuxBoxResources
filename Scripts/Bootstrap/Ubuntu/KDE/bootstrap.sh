@@ -52,6 +52,10 @@ chroot arm64 rm /var/lib/dpkg/info/libpam-fprintd*.postinst
 chroot arm64 dpkg --configure -a
 chroot arm64 apt install -f
 
+#Quality of life package
+chroot arm64 apt install sudo nano vim-tiny wget curl git zip unzip p7zip-full xz-utils htop neofetch file tree less -y
+
+#Necessary step to replace Snap Firefox as it doesn't work on Android
 chroot arm64 apt remove firefox -y
 cp mozilla-firefox arm64/etc/apt/preferences.d/
 chroot arm64 install -d -m 0755 /etc/apt/keyrings
@@ -59,6 +63,7 @@ chroot arm64 wget -q https://packages.mozilla.org/apt/repo-signing-key.gpg -O- |
 chroot arm64 echo "deb [signed-by=/etc/apt/keyrings/packages.mozilla.org.asc] https://packages.mozilla.org/apt mozilla main" | sudo tee -a /etc/apt/sources.list.d/mozilla.list > /dev/null
 chroot arm64 apt update
 chroot arm64 apt install firefox
+chroot arm64 echo "export MOZ_DISABLE_CONTENT_SANDBOX=1" >> /etc/profile
 
 #Necessary steps for KDE to prevent Konsole warning
 mkdir -p arm64/root/.local/share/konsole
@@ -68,7 +73,6 @@ chroot arm64 echo -e "[Desktop Entry]\nDefaultProfile=LinuxBox.profile\n\n" >>  
 chroot arm64 apt clean
 chroot arm64 apt autoremove -y
 chroot arm64 echo "export DISPLAY=":1"" >> /etc/profile
-chroot arm64 echo "export MOZ_DISABLE_CONTENT_SANDBOX=1" >> /etc/profile
 rm -rf arm64/var/lib/apt/lists/*
 
 #tar the rootfs
