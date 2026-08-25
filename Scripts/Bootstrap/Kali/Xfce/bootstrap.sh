@@ -42,17 +42,10 @@ chroot arm64 chmod +x /usr/local/bin/vncserver-stop
 chroot arm64 apt update
 chroot arm64 apt upgrade -y
 chroot arm64 apt dist-upgrade -y
-chroot arm64 apt install kali-linux-core kali-tools-top10 xfce4 xfce4-goodies xfce4-terminal firefox-esr xorg tigervnc-standalone-server dbus-x11 gvfs-daemons udisks2 -y
-chroot arm64 rm /var/lib/dpkg/info/udisks2.postinst
-chroot arm64 dpkg --configure udisks2
-chroot arm64 rm /var/lib/dpkg/info/fprintd.postinst
-chroot arm64 rm /var/lib/dpkg/info/libfprint*.postinst
-chroot arm64 rm /var/lib/dpkg/info/libpam-fprintd*.postinst
-chroot arm64 dpkg --configure -a
-chroot arm64 apt install -f
+chroot arm64 apt install kali-linux-core kali-tools-top10 kali-desktop-xfce4 xfce4-goodies xfce4-terminal firefox-esr xorg tigervnc-standalone-server dbus-x11 gvfs-daemons udisks2 -y
 
 #Quality of life package
-chroot arm64 apt install sudo nano vim-tiny wget curl git zip unzip p7zip-full xz-utils htop neofetch file tree less -y
+chroot arm64 apt install sudo nano vim-tiny wget curl git zip unzip p7zip-full xz-utils htop fastfetch file tree less -y
 
 #Necessary step to renable Firefox on Kali
 chroot arm64 /bin/bash -c 'echo "export MOZ_DISABLE_CONTENT_SANDBOX=1" >> /etc/profile'
