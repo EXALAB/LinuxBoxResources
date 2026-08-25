@@ -59,8 +59,8 @@ chroot arm64 apt install sudo nano vim-tiny wget curl git zip unzip p7zip-full x
 chroot arm64 apt remove firefox -y
 cp mozilla-firefox arm64/etc/apt/preferences.d/
 chroot arm64 install -d -m 0755 /etc/apt/keyrings
-chroot arm64 wget -q https://packages.mozilla.org/apt/repo-signing-key.gpg -O- | sudo tee /etc/apt/keyrings/packages.mozilla.org.asc > /dev/null
-chroot arm64 echo "deb [signed-by=/etc/apt/keyrings/packages.mozilla.org.asc] https://packages.mozilla.org/apt mozilla main" | sudo tee -a /etc/apt/sources.list.d/mozilla.list > /dev/null
+chroot arm64 /bin/bash -c "wget -q https://packages.mozilla.org/apt/repo-signing-key.gpg -O- | tee /etc/apt/keyrings/packages.mozilla.org.asc > /dev/null"
+chroot arm64 /bin/bash -c "echo 'deb [signed-by=/etc/apt/keyrings/packages.mozilla.org.asc] https://packages.mozilla.org/apt mozilla main' | tee -a /etc/apt/sources.list.d/mozilla.list > /dev/null"
 chroot arm64 apt update
 chroot arm64 apt install firefox
 chroot arm64 echo "export MOZ_DISABLE_CONTENT_SANDBOX=1" >> /etc/profile
