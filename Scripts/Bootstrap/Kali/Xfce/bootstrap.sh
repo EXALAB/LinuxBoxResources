@@ -30,10 +30,11 @@ echo "deb-src https://kali.download/kali kali-rolling main contrib non-free" >> 
 #Import the gpg key, this is only required in Kali
 chroot arm64 wget http://archive.kali.org/archive-key.asc -O /etc/apt/trusted.gpg.d/kali-archive-key.asc
 
-cp -r .vnc arm64/root/
+mkdir -p arm64/root/.config/tigervnc/
+cp xstartup arm64/root/.config/tigervnc/
 cp linuxbox-start arm64/usr/local/bin/
 cp vncserver-stop arm64/usr/local/bin/
-chroot arm64 chmod +x /root/.vnc/xstartup
+chroot arm64 chmod +x /root/.config/tigervnc/xstartup
 chroot arm64 chmod +x /usr/local/bin/linuxbox-start
 chroot arm64 chmod +x /usr/local/bin/vncserver-stop
 
@@ -41,7 +42,7 @@ chroot arm64 chmod +x /usr/local/bin/vncserver-stop
 chroot arm64 apt update
 chroot arm64 apt upgrade -y
 chroot arm64 apt dist-upgrade -y
-chroot arm64 apt install kali-linux-core kali-desktop-xfce kali-tools-top10 firefox-esr xorg tigervnc-standalone-server dbus-x11 gvfs-daemons udisks2 -y
+chroot arm64 apt install kali-linux-core kali-tools-top10 xfce4 xfce4-goodies xfce4-terminal firefox-esr xorg tigervnc-standalone-server dbus-x11 gvfs-daemons udisks2 -y
 chroot arm64 rm /var/lib/dpkg/info/udisks2.postinst
 chroot arm64 dpkg --configure udisks2
 chroot arm64 rm /var/lib/dpkg/info/fprintd.postinst
