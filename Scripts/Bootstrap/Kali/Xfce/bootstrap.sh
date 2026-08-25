@@ -24,13 +24,12 @@ echo "nameserver 8.8.4.4" >> arm64/etc/resolv.conf
 #sources.list setup
 rm arm64/etc/apt/sources.list
 rm arm64/etc/hostname
-echo "LinuxBox-Ubuntu-Xfce" > arm64/etc/hostname
-echo "deb http://ports.ubuntu.com/ubuntu-ports noble main restricted universe multiverse" >> arm64/etc/apt/sources.list
-echo "deb http://ports.ubuntu.com/ubuntu-ports noble-backports main restricted universe multiverse" >> arm64/etc/apt/sources.list
-echo "deb http://ports.ubuntu.com/ubuntu-ports noble-proposed main restricted universe multiverse" >> arm64/etc/apt/sources.list
-echo "deb http://ports.ubuntu.com/ubuntu-ports noble-security main restricted universe multiverse" >> arm64/etc/apt/sources.list
-echo "deb http://ports.ubuntu.com/ubuntu-ports noble-updates main restricted universe multiverse" >> arm64/etc/apt/sources.list
-echo "deb-src http://ports.ubuntu.com/ubuntu-ports noble main restricted universe multiverse" >> arm64/etc/apt/sources.list
+echo "LinuxBox-Kali-Xfce" > arm64/etc/hostname
+echo "deb http://http.kali.org/kali kali-rolling main contrib non-free" >> $2/etc/apt/sources.list
+echo "deb-src http://http.kali.org/kali kali-rolling main contrib non-free" >> $2/etc/apt/sources.list
+
+#Import the gpg key, this is only required in Kali
+chroot arm64 wget http://archive.kali.org/archive-key.asc -O /etc/apt/trusted.gpg.d/kali-archive-key.asc
 
 cp -r .vnc arm64/root/
 cp linuxbox-start arm64/usr/local/bin/
@@ -43,7 +42,7 @@ chroot arm64 chmod +x /usr/local/bin/vncserver-stop
 chroot arm64 apt update
 chroot arm64 apt upgrade -y
 chroot arm64 apt dist-upgrade -y
-chroot arm64 apt install xorg xfce4 xfce4-terminal xfce4-goodies tigervnc-standalone-server dbus-x11 gvfs-daemons udisks2 -y
+chroot arm64 apt install kali-linux-core kali-desktop-xfce kali-tools-top10 firefox-esr xorg tigervnc-standalone-server dbus-x11 gvfs-daemons udisks2 -y
 chroot arm64 rm /var/lib/dpkg/info/udisks2.postinst
 chroot arm64 dpkg --configure udisks2
 chroot arm64 rm /var/lib/dpkg/info/fprintd.postinst
@@ -55,14 +54,7 @@ chroot arm64 apt install -f
 #Quality of life package
 chroot arm64 apt install sudo nano vim-tiny wget curl git zip unzip p7zip-full xz-utils htop neofetch file tree less -y
 
-#Necessary step to replace Snap Firefox as it doesn't work on Android
-chroot arm64 apt remove firefox -y
-cp mozilla-firefox arm64/etc/apt/preferences.d/
-chroot arm64 install -d -m 0755 /etc/apt/keyrings
-chroot arm64 /bin/bash -c "wget -q https://packages.mozilla.org/apt/repo-signing-key.gpg -O- | tee /etc/apt/keyrings/packages.mozilla.org.asc > /dev/null"
-chroot arm64 /bin/bash -c "echo 'deb [signed-by=/etc/apt/keyrings/packages.mozilla.org.asc] https://packages.mozilla.org/apt mozilla main' | tee -a /etc/apt/sources.list.d/mozilla.list > /dev/null"
-chroot arm64 apt update
-chroot arm64 apt install firefox
+#Necessary step to renable Firefox on Kali
 chroot arm64 /bin/bash -c 'echo "export MOZ_DISABLE_CONTENT_SANDBOX=1" >> /etc/profile'
 
 chroot arm64 apt clean
@@ -72,6 +64,6 @@ rm -rf arm64/var/lib/apt/lists/*
 
 #tar the rootfs
 cd arm64
-rm -rf ../ubuntu-xfce-rootfs.tar.xz
+rm -rf ../kali-xfce-rootfs.tar.xz
 rm -rf dev/*
-XZ_OPT=-9 tar -cJvf ../ubuntu-xfce-rootfs.tar.xz ./*
+XZ_OPT=-9 tar -cJvf ../kali-xfce-rootfs.tar.xz ./*
