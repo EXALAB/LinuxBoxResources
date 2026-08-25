@@ -8,7 +8,7 @@ tarball="ubuntu-xfce-rootfs.tar.xz"
 if [ "$first" != 1 ];then
 	if [ ! -f $tarball ]; then
 		echo "Download Rootfs, this may take a while base on your internet speed."
-		wget --show-progress "https://github.com/NextAppsLab/LinuxBoxResources/releases/download/Ubuntu_KDE/ubuntu-kde-rootfs.tar.xz" -O $tarball
+		wget --show-progress "https://github.com/NextAppsLab/LinuxBoxResources/releases/download/Text_Rootfs/ubuntu-xfce-rootfs.tar.xz" -O $tarball
 	fi
 	cur=`pwd`
 	mkdir -p "$folder"
