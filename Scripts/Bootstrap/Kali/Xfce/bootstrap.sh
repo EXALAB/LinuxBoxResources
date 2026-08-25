@@ -38,6 +38,11 @@ chroot arm64 chmod +x /root/.config/tigervnc/xstartup
 chroot arm64 chmod +x /usr/local/bin/linuxbox-start
 chroot arm64 chmod +x /usr/local/bin/vncserver-stop
 
+mount -t proc proc arm64/proc
+mount --rbind /dev arm64/dev
+mount --rbind /sys arm64/sys
+mount --rbind /run arm64/run
+
 #setup custom packages
 chroot arm64 apt update
 chroot arm64 apt upgrade -y
@@ -46,6 +51,11 @@ chroot arm64 apt install kali-linux-core kali-tools-top10 kali-desktop-xfce xfce
 
 #Quality of life package
 chroot arm64 apt install sudo nano vim-tiny wget curl git zip unzip p7zip-full xz-utils htop fastfetch file tree less -y
+
+umount -R arm64/run
+umount -R arm64/sys
+umount -R arm64/dev
+umount arm64/proc
 
 #Necessary step to renable Firefox on Kali
 chroot arm64 /bin/bash -c 'echo "export MOZ_DISABLE_CONTENT_SANDBOX=1" >> /etc/profile'
