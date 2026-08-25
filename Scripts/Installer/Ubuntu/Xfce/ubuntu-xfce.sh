@@ -17,7 +17,7 @@ if [ "$first" != 1 ];then
 	proot --link2symlink tar -xJf ${cur}/${tarball}||:
 	cd "$cur"
 fi
-mkdir -p ubuntu-binds
+mkdir -p ubuntu-xfce-binds
 bin=start-ubuntu-xfce.sh
 echo "writing launch script"
 cat > $bin <<- EOM
@@ -31,8 +31,8 @@ command="proot"
 command+=" --link2symlink"
 command+=" -0"
 command+=" -r $folder"
-if [ -n "\$(ls -A ubuntu-binds)" ]; then
-    for f in ubuntu-binds/* ;do
+if [ -n "\$(ls -A ubuntu-xfce-binds)" ]; then
+    for f in ubuntu-xfce-binds/* ;do
       . \$f
     done
 fi
