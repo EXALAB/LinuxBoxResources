@@ -42,7 +42,7 @@ chroot arm64 chmod +x /usr/local/bin/vncserver-stop
 chroot arm64 apt update
 chroot arm64 apt upgrade -y
 chroot arm64 apt dist-upgrade -y
-chroot arm64 apt install kali-linux-core kali-tools-top10 kali-desktop-xfce4 xfce4-goodies xfce4-terminal firefox-esr xorg tigervnc-standalone-server dbus-x11 gvfs-daemons udisks2 -y
+chroot arm64 apt install kali-linux-core kali-tools-top10 kali-desktop-xfce xfce4-goodies xfce4-terminal firefox-esr xorg tigervnc-standalone-server dbus-x11 gvfs-daemons udisks2 -y
 
 #Quality of life package
 chroot arm64 apt install sudo nano vim-tiny wget curl git zip unzip p7zip-full xz-utils htop fastfetch file tree less -y
