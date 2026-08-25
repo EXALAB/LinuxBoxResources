@@ -63,7 +63,7 @@ chroot arm64 /bin/bash -c "wget -q https://packages.mozilla.org/apt/repo-signing
 chroot arm64 /bin/bash -c "echo 'deb [signed-by=/etc/apt/keyrings/packages.mozilla.org.asc] https://packages.mozilla.org/apt mozilla main' | tee -a /etc/apt/sources.list.d/mozilla.list > /dev/null"
 chroot arm64 apt update
 chroot arm64 apt install firefox
-chroot arm64 echo "export MOZ_DISABLE_CONTENT_SANDBOX=1" >> /etc/profile
+chroot arm64 /bin/bash -c 'echo "export MOZ_DISABLE_CONTENT_SANDBOX=1" >> /etc/profile'
 
 #Necessary steps for KDE to prevent Konsole warning
 mkdir -p arm64/root/.local/share/konsole
@@ -73,7 +73,7 @@ cp konsolerc arm64/root/.config/konsolerc
 
 chroot arm64 apt clean
 chroot arm64 apt autoremove -y
-chroot arm64 echo "export DISPLAY=":1"" >> /etc/profile
+chroot arm64 /bin/bash -c 'echo "export DISPLAY=:1" >> /etc/profile'
 rm -rf arm64/var/lib/apt/lists/*
 
 #tar the rootfs
