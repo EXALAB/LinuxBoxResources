@@ -24,12 +24,12 @@ echo "nameserver 8.8.4.4" >> arm64/etc/resolv.conf
 rm arm64/etc/apt/sources.list
 rm arm64/etc/hostname
 echo "LinuxBox-Ubuntu-KDE" > arm64/etc/hostname
-echo "deb http://ports.ubuntu.com/ubuntu-ports noble main restricted universe multiverse" >> arm64/etc/apt/sources.list
-echo "deb http://ports.ubuntu.com/ubuntu-ports noble-backports main restricted universe multiverse" >> arm64/etc/apt/sources.list
-echo "deb http://ports.ubuntu.com/ubuntu-ports noble-proposed main restricted universe multiverse" >> arm64/etc/apt/sources.list
-echo "deb http://ports.ubuntu.com/ubuntu-ports noble-security main restricted universe multiverse" >> arm64/etc/apt/sources.list
-echo "deb http://ports.ubuntu.com/ubuntu-ports noble-updates main restricted universe multiverse" >> arm64/etc/apt/sources.list
-echo "deb-src http://ports.ubuntu.com/ubuntu-ports noble main restricted universe multiverse" >> arm64/etc/apt/sources.list
+echo "deb https://ports.ubuntu.com/ubuntu-ports noble main restricted universe multiverse" >> arm64/etc/apt/sources.list
+echo "deb https://ports.ubuntu.com/ubuntu-ports noble-backports main restricted universe multiverse" >> arm64/etc/apt/sources.list
+echo "deb https://ports.ubuntu.com/ubuntu-ports noble-proposed main restricted universe multiverse" >> arm64/etc/apt/sources.list
+echo "deb https://ports.ubuntu.com/ubuntu-ports noble-security main restricted universe multiverse" >> arm64/etc/apt/sources.list
+echo "deb https://ports.ubuntu.com/ubuntu-ports noble-updates main restricted universe multiverse" >> arm64/etc/apt/sources.list
+echo "deb-src https://ports.ubuntu.com/ubuntu-ports noble main restricted universe multiverse" >> arm64/etc/apt/sources.list
 
 cp -r .vnc arm64/root/
 cp linuxbox-start arm64/usr/local/bin/

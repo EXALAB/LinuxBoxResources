@@ -24,8 +24,8 @@ echo "nameserver 8.8.4.4" >> arm64/etc/resolv.conf
 rm arm64/etc/apt/sources.list
 rm arm64/etc/hostname
 echo "LinuxBox-Kali-Xfce" > arm64/etc/hostname
-echo "deb http://kali.download/kali kali-rolling main contrib non-free" >> $2/etc/apt/sources.list
-echo "deb-src http://kali.download/kali kali-rolling main contrib non-free" >> $2/etc/apt/sources.list
+echo "deb https://kali.download/kali kali-rolling main contrib non-free" >> arm64/etc/apt/sources.list
+echo "deb-src https://kali.download/kali kali-rolling main contrib non-free" >> arm64/etc/apt/sources.list
 
 #Import the gpg key, this is only required in Kali
 chroot arm64 wget http://archive.kali.org/archive-key.asc -O /etc/apt/trusted.gpg.d/kali-archive-key.asc
