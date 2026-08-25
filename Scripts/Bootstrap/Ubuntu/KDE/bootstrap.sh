@@ -5,7 +5,6 @@ rm -rf arm64
 mkdir arm64
 debootstrap --arch=arm64 --variant=minbase --include=systemd,libsystemd0,wget,ca-certificates,busybox-static noble arm64 http://ports.ubuntu.com/ubuntu-ports
 
-
 #Reduce size
 DEBIAN_FRONTEND=noninteractive DEBCONF_NONINTERACTIVE_SEEN=true \
  LC_ALL=C LANGUAGE=C LANG=C chroot arm64 apt clean

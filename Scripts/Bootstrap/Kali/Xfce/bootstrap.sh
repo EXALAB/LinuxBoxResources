@@ -3,8 +3,7 @@
 #Bootstrap the system
 rm -rf arm64
 mkdir arm64
-debootstrap --arch=arm64 --variant=minbase --include=systemd,libsystemd0,wget,ca-certificates,busybox-static noble arm64 http://ports.ubuntu.com/ubuntu-ports
-
+debootstrap --arch=arm64 --variant=minbase --include=systemd,libsystemd0,wget,ca-certificates,busybox-static,gnupg kali-rolling arm64 http://http.kali.org/kali
 
 #Reduce size
 DEBIAN_FRONTEND=noninteractive DEBCONF_NONINTERACTIVE_SEEN=true \
