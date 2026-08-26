@@ -69,6 +69,7 @@ chroot arm64 apt clean
 chroot arm64 apt autoremove -y
 chroot arm64 /bin/bash -c 'echo "export DISPLAY=:1" >> /etc/profile'
 rm -rf arm64/var/lib/apt/lists/*
+chroot arm64 apt install -f
 
 #tar the rootfs
 cd arm64
