@@ -38,6 +38,7 @@ chroot arm64 chmod +x /root/.config/tigervnc/xstartup
 chroot arm64 chmod +x /usr/local/bin/linuxbox-start
 chroot arm64 chmod +x /usr/local/bin/vncserver-stop
 
+#Mount /proc to prevent package installation failure
 mount -t proc proc arm64/proc
 
 #setup custom packages
@@ -49,10 +50,17 @@ chroot arm64 apt install kali-linux-core kali-tools-top10 kali-desktop-kde firef
 #Quality of life package
 chroot arm64 apt install sudo nano vim-tiny wget curl git zip unzip p7zip-full xz-utils htop fastfetch file tree less -y
 
+#Package installation done, unmount /proc
 umount arm64/proc
 
 #Necessary step to renable Firefox on Kali
 chroot arm64 /bin/bash -c 'echo "export MOZ_DISABLE_CONTENT_SANDBOX=1" >> /etc/profile'
+
+#Necessary steps for KDE to prevent Konsole warning
+mkdir -p arm64/root/.local/share/konsole
+mkdir -p arm64/root/.config
+cp LinuxBox.profile arm64/root/.local/share/konsole/
+cp konsolerc arm64/root/.config/konsolerc
 
 chroot arm64 apt clean
 chroot arm64 apt autoremove -y
