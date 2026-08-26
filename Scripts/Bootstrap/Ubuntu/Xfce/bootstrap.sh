@@ -31,10 +31,14 @@ echo "deb https://ports.ubuntu.com/ubuntu-ports noble-security main restricted u
 echo "deb https://ports.ubuntu.com/ubuntu-ports noble-updates main restricted universe multiverse" >> arm64/etc/apt/sources.list
 echo "deb-src https://ports.ubuntu.com/ubuntu-ports noble main restricted universe multiverse" >> arm64/etc/apt/sources.list
 
-cp -r .vnc arm64/root/
+mkdir -p arm64/root/.vnc/
+mkdir -p arm64/root/.config/tigervnc/
+cp xstartup arm64/root/.vnc/
+cp xstartup arm64/root/.config/tigervnc/
 cp linuxbox-start arm64/usr/local/bin/
 cp vncserver-stop arm64/usr/local/bin/
 chroot arm64 chmod +x /root/.vnc/xstartup
+chroot arm64 chmod +x /root/.config/tigervnc/xstartup
 chroot arm64 chmod +x /usr/local/bin/linuxbox-start
 chroot arm64 chmod +x /usr/local/bin/vncserver-stop
 
