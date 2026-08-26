@@ -48,7 +48,7 @@ chroot arm64 apt dist-upgrade -y
 chroot arm64 apt install xorg xfce4 xfce4-terminal xfce4-goodies firefox-esr tigervnc-standalone-server dbus-x11 gvfs-daemons udisks2 -y
 
 #Quality of life package
-chroot arm64 apt install sudo nano vim-tiny wget curl git zip unzip p7zip-full xz-utils htop neofetch file tree less -y
+chroot arm64 apt install sudo nano vim-tiny wget curl git zip unzip p7zip-full xz-utils htop fastfetch file tree less -y
 
 #Package installation done, unmount /proc
 umount arm64/proc
