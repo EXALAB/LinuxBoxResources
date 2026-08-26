@@ -1,2 +1,2 @@
 #!/data/data/com.termux/files/usr/bin/bash
-rm -rf ubuntu-kde-fs ubuntu-xfce-binds start-ubuntu-xfce.sh ubuntu-xfce-installer.sh ubuntu-xfce-uninstaller.sh
+rm -rf ubuntu-xfce-fs ubuntu-xfce-binds start-ubuntu-xfce.sh ubuntu-xfce-installer.sh ubuntu-xfce-uninstaller.sh

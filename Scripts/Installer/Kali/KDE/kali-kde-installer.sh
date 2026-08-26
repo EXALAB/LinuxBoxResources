@@ -1,15 +1,15 @@
 #!/data/data/com.termux/files/usr/bin/bash
-folder=kali-xfce-fs
+folder=kali-kde-fs
 if [ -d "$folder" ]; then
 	first=1
 	echo "skipping downloading"
 fi
-tarball="kali-xfce-rootfs.tar.xz"
+tarball="kali-kde-rootfs.tar.xz"
 rm -f $tarball
 if [ "$first" != 1 ];then
 	if [ ! -f $tarball ]; then
 		echo "Download Rootfs, this may take a while base on your internet speed."
-		wget --show-progress "https://github.com/NextAppsLab/LinuxBoxResources/releases/download/Kali-Xfce/kali-xfce-rootfs.tar.xz" -O $tarball
+		wget --show-progress "https://github.com/NextAppsLab/LinuxBoxResources/releases/download/Kali-KDE/kali-kde-rootfs.tar.xz" -O $tarball
 	fi
 	cur=`pwd`
 	mkdir -p "$folder"
@@ -18,8 +18,8 @@ if [ "$first" != 1 ];then
 	proot --link2symlink tar -xJf ${cur}/${tarball}||:
 	cd "$cur"
 fi
-mkdir -p kali-xfce-binds
-bin=start-kali-xfce.sh
+mkdir -p kali-kde-binds
+bin=start-kali-kde.sh
 echo "writing launch script"
 cat > $bin <<- EOM
 #!/bin/bash
@@ -32,14 +32,14 @@ command="proot"
 command+=" --link2symlink"
 command+=" -0"
 command+=" -r $folder"
-if [ -n "\$(ls -A kali-xfce-binds)" ]; then
-    for f in kali-xfce-binds/* ;do
+if [ -n "\$(ls -A kali-kde-binds)" ]; then
+    for f in kali-kde-binds/* ;do
       . \$f
     done
 fi
 command+=" -b /dev"
 command+=" -b /proc"
-command+=" -b kali-xfce-fs/root:/dev/shm"
+command+=" -b kali-kde-fs/root:/dev/shm"
 ## uncomment the following line to have access to the home directory of termux
 #command+=" -b /data/data/com.termux/files/home:/root"
 ## uncomment the following line to mount /sdcard directly to / 
@@ -73,7 +73,7 @@ echo "exit-idle-time = -1" >> ~/../usr/etc/pulse/daemon.conf
 echo "Modified pulseaudio timeout to infinite"
 echo "autospawn = no" >> ~/../usr/etc/pulse/client.conf
 echo "Disabled pulseaudio autospawn"
-echo "export PULSE_SERVER=127.0.0.1" >> kali-xfce-fs/etc/profile
+echo "export PULSE_SERVER=127.0.0.1" >> kali-kde-fs/etc/profile
 echo "Setting Pulseaudio server to 127.0.0.1"
 
 echo "fixing shebang of $bin"

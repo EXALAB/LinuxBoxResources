@@ -23,7 +23,7 @@ echo "nameserver 8.8.4.4" >> arm64/etc/resolv.conf
 #sources.list setup
 rm arm64/etc/apt/sources.list
 rm arm64/etc/hostname
-echo "LinuxBox-Kali-Xfce" > arm64/etc/hostname
+echo "LinuxBox-Kali-KDE" > arm64/etc/hostname
 echo "deb https://kali.download/kali kali-rolling main contrib non-free" >> arm64/etc/apt/sources.list
 echo "deb-src https://kali.download/kali kali-rolling main contrib non-free" >> arm64/etc/apt/sources.list
 
@@ -39,22 +39,16 @@ chroot arm64 chmod +x /usr/local/bin/linuxbox-start
 chroot arm64 chmod +x /usr/local/bin/vncserver-stop
 
 mount -t proc proc arm64/proc
-mount --rbind /dev arm64/dev
-mount --rbind /sys arm64/sys
-mount --rbind /run arm64/run
 
 #setup custom packages
 chroot arm64 apt update
 chroot arm64 apt upgrade -y
 chroot arm64 apt dist-upgrade -y
-chroot arm64 apt install kali-linux-core kali-tools-top10 kali-desktop-xfce xfce4-goodies xfce4-terminal firefox-esr xorg tigervnc-standalone-server dbus-x11 gvfs-daemons udisks2 -y
+chroot arm64 apt install kali-linux-core kali-tools-top10 kali-desktop-kde firefox-esr xorg tigervnc-standalone-server dbus-x11 gvfs-daemons udisks2 -y
 
 #Quality of life package
 chroot arm64 apt install sudo nano vim-tiny wget curl git zip unzip p7zip-full xz-utils htop fastfetch file tree less -y
 
-umount -R arm64/run
-umount -R arm64/sys
-umount -R arm64/dev
 umount arm64/proc
 
 #Necessary step to renable Firefox on Kali
@@ -67,6 +61,6 @@ rm -rf arm64/var/lib/apt/lists/*
 
 #tar the rootfs
 cd arm64
-rm -rf ../kali-xfce-rootfs.tar.xz
+rm -rf ../kali-kde-rootfs.tar.xz
 rm -rf dev/*
-XZ_OPT=-9 tar -cJvf ../kali-xfce-rootfs.tar.xz ./*
+XZ_OPT=-9 tar -cJvf ../kali-kde-rootfs.tar.xz ./*
