@@ -14,8 +14,6 @@ You will need to install some package first:
 
 Also you may want to install [kali-archive-keyring](https://http.kali.org/pool/main/k/kali-archive-keyring/) debian package manually to bootstrap Kali distro.
 
-Then go to [Bootstrap](https://github.com/EXALAB/Anlinux-Resources/tree/master/Scripts/Bootstrap) and download the bootstrap.sh script. (It is important to follow instructions before running bootstrap.sh if there any.)
-
-To bootstrap a system, simply run:
+After installing all the required packages, you can simply bootstrap the system by running:
 
 > sudo ./bootstrap.sh
