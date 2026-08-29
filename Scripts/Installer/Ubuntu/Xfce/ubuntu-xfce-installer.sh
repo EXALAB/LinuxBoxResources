@@ -9,7 +9,7 @@ rm -f $tarball
 if [ "$first" != 1 ];then
 	if [ ! -f $tarball ]; then
 		echo "Download Rootfs, this may take a while base on your internet speed."
-		wget --show-progress "https://github.com/NextAppsLab/LinuxBoxResources/releases/download/Ubuntu-Xfce/ubuntu-xfce-rootfs.tar.xz" -O $tarball
+		wget --show-progress "https://github.com/EXALAB/LinuxBoxResources/releases/download/Ubuntu-Xfce/ubuntu-xfce-rootfs.tar.xz" -O $tarball
 	fi
 	cur=`pwd`
 	mkdir -p "$folder"
