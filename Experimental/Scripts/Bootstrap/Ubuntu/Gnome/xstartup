@@ -1,0 +1,6 @@
+#!/bin/bash
+xrdb $HOME/.Xresources
+
+export XDG_SESSION_TYPE=x11
+export GDK_BAKEND=x11
+dbus-launch gnome-session --session=ubuntu
