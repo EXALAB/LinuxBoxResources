@@ -1,15 +1,15 @@
 #!/data/data/com.termux/files/usr/bin/bash
-folder=ubuntu-xfce-fs
+folder=ubuntu-gnome-fs
 if [ -d "$folder" ]; then
 	first=1
 	echo "skipping downloading"
 fi
-tarball="ubuntu-xfce-rootfs.tar.xz"
+tarball="ubuntu-gnome-rootfs.tar.xz"
 rm -f $tarball
 if [ "$first" != 1 ];then
 	if [ ! -f $tarball ]; then
 		echo "Download Rootfs, this may take a while base on your internet speed."
-		wget --show-progress "https://github.com/EXALAB/LinuxBoxResources/releases/download/Ubuntu-Xfce/ubuntu-xfce-rootfs.tar.xz" -O $tarball
+		wget --show-progress "https://github.com/EXALAB/LinuxBoxResources/releases/download/Testing/ubuntu-gnome-rootfs.tar.xz" -O $tarball
 	fi
 	cur=`pwd`
 	mkdir -p "$folder"
@@ -18,8 +18,8 @@ if [ "$first" != 1 ];then
 	proot --link2symlink tar -xJf ${cur}/${tarball}||:
 	cd "$cur"
 fi
-mkdir -p ubuntu-xfce-binds
-bin=start-ubuntu-xfce.sh
+mkdir -p ubuntu-gnome-binds
+bin=start-ubuntu-gnome.sh
 echo "writing launch script"
 cat > $bin <<- EOM
 #!/bin/bash
@@ -32,14 +32,14 @@ command="proot"
 command+=" --link2symlink"
 command+=" -0"
 command+=" -r $folder"
-if [ -n "\$(ls -A ubuntu-xfce-binds)" ]; then
-    for f in ubuntu-xfce-binds/* ;do
+if [ -n "\$(ls -A ubuntu-gnome-binds)" ]; then
+    for f in ubuntu-gnome-binds/* ;do
       . \$f
     done
 fi
 command+=" -b /dev"
 command+=" -b /proc"
-command+=" -b ubuntu-xfce-fs/root:/dev/shm"
+command+=" -b ubuntu-gnome-fs/root:/dev/shm"
 ## uncomment the following line to have access to the home directory of termux
 #command+=" -b /data/data/com.termux/files/home:/root"
 ## uncomment the following line to mount /sdcard directly to / 
@@ -73,7 +73,7 @@ echo "exit-idle-time = -1" >> ~/../usr/etc/pulse/daemon.conf
 echo "Modified pulseaudio timeout to infinite"
 echo "autospawn = no" >> ~/../usr/etc/pulse/client.conf
 echo "Disabled pulseaudio autospawn"
-echo "export PULSE_SERVER=127.0.0.1" >> ubuntu-xfce-fs/etc/profile
+echo "export PULSE_SERVER=127.0.0.1" >> ubuntu-gnome-fs/etc/profile
 echo "Setting Pulseaudio server to 127.0.0.1"
 
 echo "fixing shebang of $bin"

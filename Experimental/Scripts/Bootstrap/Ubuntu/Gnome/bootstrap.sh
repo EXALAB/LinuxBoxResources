@@ -61,7 +61,7 @@ chroot arm64 apt install xorg ubuntu-desktop gnome-shell gnome-terminal tigervnc
 chroot arm64 apt remove gdm3 -y
 chroot arm64 apt remove systemd-timesyncd systemd-resolved -y
 chroot arm64 apt autoremove -y
-chroot arm64 apt install dbus-x11 elogind -y
+chroot arm64 apt install dbus-x11 -y
 
 #Quality of life package
 chroot arm64 apt install sudo nano vim-tiny wget curl git zip unzip p7zip-full xz-utils htop neofetch file tree less -y
